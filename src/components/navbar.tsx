@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, User, LogOut, LayoutDashboard } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -53,19 +48,19 @@ export async function Navbar() {
         <div className="flex items-center gap-4">
           {session ? (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <User className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem>
                   <Link href={getDashboardLink()} className="flex items-center cursor-pointer">
                     <LayoutDashboard className="mr-2 h-4 w-4" />
                     Dashboard
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem>
                   <form action="/api/auth/signout" method="POST" className="w-full">
                     <button type="submit" className="flex items-center w-full cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
@@ -77,17 +72,17 @@ export async function Navbar() {
             </DropdownMenu>
           ) : (
             <div className="hidden md:flex items-center gap-2">
-              <Button variant="ghost" asChild>
+              <Button variant="ghost">
                 <Link href="/login">Sign In</Link>
               </Button>
-              <Button className="bg-teal-700 hover:bg-teal-800" asChild>
+              <Button className="bg-teal-700 hover:bg-teal-800">
                 <Link href="/register">Join as Provider</Link>
               </Button>
             </div>
           )}
 
           <Sheet>
-            <SheetTrigger asChild className="md:hidden">
+            <SheetTrigger className="md:hidden">
               <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
               </Button>

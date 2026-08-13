@@ -1,14 +1,12 @@
 import Link from "next/link";
-
 export function Footer() {
-  return (
-    <footer className="border-t bg-stone-50">
+    return (<footer className="border-t bg-stone-50">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="font-bold text-lg text-teal-700 mb-4 flex items-center gap-2">
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
               </svg>
               HealthFind
             </h3>
@@ -48,6 +46,5 @@ export function Footer() {
           <p> HealthFind. This platform is for healthcare discovery only and does not provide medical diagnosis.</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
 }

@@ -28,7 +28,6 @@ export function AppointmentForm({ chambers }: { chambers: any[] }) {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -58,11 +57,10 @@ export function AppointmentForm({ chambers }: { chambers: any[] }) {
       endTime: selectedSlot?.end || "",
     });
     setSubmitting(false);
-
     if (result.error) {
       toast.error(result.error);
     } else {
-      setReference(result.reference);
+      setReference(result.reference || null);
       toast.success("Appointment booked successfully!");
     }
   };
@@ -89,16 +87,26 @@ export function AppointmentForm({ chambers }: { chambers: any[] }) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <Label>Select Chamber</Label>
-        <Select onValueChange={(v) => { setValue("chamberId", v); if (selectedDate) loadSlots(v, selectedDate); }}>
+        <Select
+          onValueChange={(v) => {
+            const val = v as string;
+            if (val) {
+              setValue("chamberId", val);
+              if (selectedDate) loadSlots(val, selectedDate);
+            }
+          }}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Choose a chamber" />
           </SelectTrigger>
           <SelectContent>
-            {chambers.filter((c: any) => c.appointmentEnabled).map((chamber: any) => (
-              <SelectItem key={chamber.id} value={chamber.id}>
-                {chamber.name}
-              </SelectItem>
-            ))}
+            {chambers
+              .filter((c: any) => c.appointmentEnabled)
+              .map((chamber: any) => (
+                <SelectItem key={chamber.id} value={chamber.id}>
+                  {chamber.name}
+                </SelectItem>
+              ))}
           </SelectContent>
         </Select>
         {errors.chamberId && <p className="text-sm text-red-500 mt-1">{errors.chamberId.message}</p>}
@@ -136,8 +144,8 @@ export function AppointmentForm({ chambers }: { chambers: any[] }) {
                     watch("startTime") === slot.start
                       ? "bg-teal-700 text-white border-teal-700"
                       : slot.available
-                      ? "hover:border-teal-500 bg-white"
-                      : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        ? "hover:border-teal-500 bg-white"
+                        : "bg-gray-100 text-gray-400 cursor-not-allowed"
                   }`}
                 >
                   {slot.start}
